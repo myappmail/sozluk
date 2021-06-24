@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sözlük Kayıt</title>
+    <script src="./jquery-3.6.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="./bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="registercss.css">
+    <script>
+    </script>
+    <script>
+        var inputUsername;
+        var inputPassword;
+        var inputTryPassword;
+
+
+        function consts() {
+            inputUsername = document.getElementById('input-username').value;
+            inputPassword = document.getElementById('input-password').value;
+            inputTryPassword = document.getElementById('input-trypassword').value;
+        }
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyBmrFHmsW7cQFzPewqlw1jX7QQW2czWqLg",
+            authDomain: "sozluk-5e188.firebaseapp.com",
+            databaseURL: "https://sozluk-5e188-default-rtdb.firebaseio.com",
+            projectId: "sozluk-5e188",
+            storageBucket: "sozluk-5e188.appspot.com",
+            messagingSenderId: "117960438677",
+            appId: "1:117960438677:web:171b9bd2273069add0bc9c",
+            measurementId: "G-MK054MXGR4"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        function Register() {
+            document.getElementById('validation-username').style.display = "flex";
+            document.getElementById('validation-password').style.display = "flex";
+            document.getElementById('validation-trypassword').style.display = "flex";
+            if (inputControl()) {
+                alert("Account Creation Successful");
+            } else {
+                alert("Account Creation Error");
+            }
+        }
+
+        function iconControl() {
+            consts();
+            document.getElementById('validation-username').style.display = "flex";
+            document.getElementById('validation-password').style.display = "flex";
+            document.getElementById('validation-trypassword').style.display = "flex";
+
+            if (inputUsername.length == 0 || inputUsername.length <= 3) {
+                document.getElementById('validation-username').className = "fa fa-times";
+                document.getElementById('validation-username').style.color = "red";
+            } else {
+                document.getElementById('validation-username').className = "fa fa-check";
+                document.getElementById('validation-username').style.color = "greenyellow";
+            }
+            if (inputPassword.trim().length == 0 || inputPassword.trim().length <= 3) {
+                document.getElementById('validation-password').className = "fa fa-times";
+                document.getElementById('validation-password').style.color = "red";
+            } else {
+                document.getElementById('validation-password').className = "fa fa-check";
+                document.getElementById('validation-password').style.color = "greenyellow";
+            }
+            if (inputTryPassword.trim().length == 0 || inputTryPassword.trim().length <= 3) {
+                document.getElementById('validation-trypassword').className = "fa fa-times";
+                document.getElementById('validation-trypassword').style.color = "red";
+            } else {
+                document.getElementById('validation-trypassword').className = "fa fa-check";
+                document.getElementById('validation-trypassword').style.color = "greenyellow";
+            }
+        }
+
+        function passwordControl() {
+            consts()
+            if (inputPassword.trim().length != 0 && inputTryPassword.trim().length != 0) {
+                if (inputPassword === inputTryPassword && inputPassword.trim().length > 3 && inputTryPassword.trim().length > 3) {
+                    return true;
+                } else {
+                    console.log("eşitleme hatası 1");
+                    return false;
+                }
+            } else {
+                console.log("eşitleme hatası 2");
+                return false
+            }
+        }
+
+        function usernameChange() {
+            iconControl();
+        }
+
+        function inputControl() {
+            console.log("neleroluyorhayatta");
+            try {
+                console.log("neleroluyorhayatta 2");
+                iconControl();
+                console.log("neleroluyorhayatta 3");
+                if (passwordControl()) {
+                    console.log("neleroluyorhayatta 4");
+                    if (inputUsername.trim().length != 0 && inputPassword.trim().length != 0 && inputTryPassword.trim().length != 0) {
+                        console.log("neleroluyorhayatta 5");
+                        registerControl();
+                        console.log("neleroluyorhayatta 6");
+                        return true;
+                    } else {
+                        console.log("inputControl() return true")
+                        return false
+                    }
+                } else {
+                    console.log("inputControl() return false")
+                    return false
+                }
+            } catch (error) {
+                console.log("catch input control error")
+                return false
+            }
+        }
+
+        function registerControl() {
+
+            try {
+                consts();
+                firebase.database().ref('Users/').push().set({
+                    username: inputUsername,
+                    password: inputPassword,
+                });
+
+            } catch (error) {
+                console.log("registerControl() error");
+            }
+        }
+    </script>
+
+    <script>
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-center h-100 ">
+            <div class="card mainBox">
+                <div class="card-header">
+                    <h3>New</h3>
+                    <h3 style="padding-left: 75px;">Membership</h3>
+                    <div class="d-flex justify-content-end social_icon">
+                        <a href="https://tr-tr.facebook.com/murat.onay.169" target="_blank"><span><i class="fab fa-facebook-square"></i></span></a>
+                        <a href="https://tr.linkedin.com/in/ismet-murat-onay-71b101181" target="_blank"><span><i class="fab fa-linkedin"></i></span></a>
+                        <a href="https://github.com/muratonay1" target="_blank"><span><i class="fab fa-github-square"></i></span></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="register-form needs-validation" novalidate="true" data-toggle="validator">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input id="input-username" type="email" class="form-control inputBox" placeholder="Username" onkeydown="usernameChange()">
+                            <span id="validation-username"><i class=""></i></span>
+
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input id="input-password" type="password" class="form-control inputBox" placeholder="Password" onkeydown="usernameChange()">
+                            <span id="validation-password"><i class=""></i></span>
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input id="input-trypassword" type="password" class="form-control inputBox" placeholder="Trying Password" onkeydown="usernameChange()">
+                            <span id="validation-trypassword"><i class=""></i></span>
+                        </div>
+                        <div style="display: flex; justify-content: center; margin-top: 5%;" class="form-group">
+                            <input type="button" value="Register" class="btn float-right login_btn ButonHover" onclick="Register()">
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div style="color: #FFC312;" class="d-flex justify-content-center links">
+                        Lets go to Login?<a href="./login.html" style="color: aliceblue;">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
