@@ -1,0 +1,54 @@
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sözlük Giriş</title>
+    <!--Made with love by Mutiullah Samim -->
+
+    <!--Bootsrap 4 CDN-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!--Custom styl es-->
+    <link rel="stylesheet" type="text/css" href="./bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap-4.3.1-dist/css/">
+    <script src="./bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="logincss.css">
+    <script>
+        function Login() {
+            var inputUsername = document.getElementById('input-username');
+            var inputPassword = document.getElementById('input-password');
+            var inputTryPassword = document.getElementById('input-trypassword');
+            console.log(inputUsername);
+            console.log(inputPassword);
+            console.log(inputTryPassword);
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="d-flex justify-content-center h-100  align-items-center">
+            <div class="card mainBox">
+                <div class="card-body" style="display: flex; justify-content: center; align-items: center;">
+                    <form action="main.html" method="post">
+                        <div style="display: flex; justify-content: center;align-items: center; flex-direction: column;">
+                            <h1 style="color: aliceblue; text-align: center;">WELCOME<br></h1><br>
+                            <a id="text" style="color: black; font-size: large; font-weight: bolder; background-color: orange; width: 90%; text-align: center; height: 100px; border-radius: 5%; display: flex; justify-content: center; align-items: center;" href="login.html" onmousemove="document.getElementById('text').style.backgroundColor='white'"
+                                onmouseout="document.getElementById('text').style.backgroundColor='orange'"><span>Let's LOGIN</span></a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

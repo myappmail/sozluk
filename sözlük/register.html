@@ -19,7 +19,6 @@
         var inputPassword;
         var inputTryPassword;
 
-
         function consts() {
             inputUsername = document.getElementById('input-username').value;
             inputPassword = document.getElementById('input-password').value;
@@ -36,7 +35,6 @@
             appId: "1:117960438677:web:171b9bd2273069add0bc9c",
             measurementId: "G-MK054MXGR4"
         };
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
 
@@ -44,8 +42,14 @@
             document.getElementById('validation-username').style.display = "flex";
             document.getElementById('validation-password').style.display = "flex";
             document.getElementById('validation-trypassword').style.display = "flex";
+
             if (inputControl()) {
-                alert("Account Creation Successful");
+                document.getElementById('validation-username').value = ""
+                document.getElementById('validation-password').value = ""
+                document.getElementById('validation-trypassword').value = ""
+                console.log("Account Creation Successful");
+
+
             } else {
                 alert("Account Creation Error");
             }
@@ -100,18 +104,21 @@
         }
 
         function inputControl() {
-            console.log("neleroluyorhayatta");
             try {
-                console.log("neleroluyorhayatta 2");
+                console.log("inputControl try1");
                 iconControl();
-                console.log("neleroluyorhayatta 3");
+                console.log("inputControl try2");
                 if (passwordControl()) {
-                    console.log("neleroluyorhayatta 4");
+                    console.log("inputControl passwordControl()=true");
                     if (inputUsername.trim().length != 0 && inputPassword.trim().length != 0 && inputTryPassword.trim().length != 0) {
-                        console.log("neleroluyorhayatta 5");
-                        registerControl();
-                        console.log("neleroluyorhayatta 6");
-                        return true;
+                        console.log("inputControl passwordControl()=true and length control");
+                        if (registerControl()) {
+                            console.log("kayıt başarılı");
+                            return true;
+                        } else {
+                            console.log("kayıt başarısız");
+                            return false
+                        }
                     } else {
                         console.log("inputControl() return true")
                         return false
@@ -127,21 +134,18 @@
         }
 
         function registerControl() {
-
             try {
                 consts();
                 firebase.database().ref('Users/').push().set({
                     username: inputUsername,
                     password: inputPassword,
                 });
-
+                return true;
             } catch (error) {
                 console.log("registerControl() error");
+                return false;
             }
         }
-    </script>
-
-    <script>
     </script>
 </head>
 
@@ -166,7 +170,6 @@
                             </div>
                             <input id="input-username" type="email" class="form-control inputBox" placeholder="Username" onkeydown="usernameChange()">
                             <span id="validation-username"><i class=""></i></span>
-
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
@@ -196,6 +199,5 @@
         </div>
     </div>
 </body>
-
 
 </html>
